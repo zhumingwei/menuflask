@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
-fname=$PWD/app/$(date +%Y%m%d)log.txt
+mkdir $PWD/log
+fname=$PWD/log/$(date +%Y%m%d)log.txt
 echo ${fname}
-nohup python start.py>>app/${fname} &
+nohup python start.py>>${fname} &
