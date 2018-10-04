@@ -47,8 +47,7 @@ def menu_list():
         dbcursor.execute(sql)
         rows = dbcursor.fetchall()
         resData.data = dict(
-            items=[dict(id=row[0], name=row[1], url=row[2], title=row[3], imgurl=row[4], desc=row[5],
-                        steps=getSteps(row[0]), things=getThings(row[0])) for row in rows])
+            items=[dict(id=row[0], name=row[1], url=row[2], title=row[3], imgurl=row[4], desc=row[5], steps=getSteps(row[0]), things=getThings(row[0])) for row in rows])
         resData.data["nextCursor"] = rows[-1][0]
 
     dbcursor.execute("select 1 from menudetail")
@@ -66,9 +65,9 @@ def menu_detail():
         cur = conn.cursor()
         cur.execute("select * from main.menudetail where id = %d" % id)
         row = cur.fetchall()[0]
-        resData = ResData(dict(id=row[0], name=row[1], url=row[2], title=row[3], imgurl=row[4], desc=row[5],
-                               steps=getSteps(row[0]), things=getThings(row[0])))
-    if resData == None:
+        resData = ResData(data=dict(id=row[0], name=row[1], url=row[2], title=row[3], imgurl=row[4], desc=row[5],
+                                    steps=getSteps(row[0]), things=getThings(row[0])))
+    if resData != None:
         return resData.toJsonRES()
     else:
         return errorRes(10000, "错误")
